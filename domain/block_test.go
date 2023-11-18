@@ -19,19 +19,19 @@ func TestRotateOBlock(t *testing.T) {
 
 	assertBodyIs(t, b, expectedOBody)
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, expectedOBody)
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, expectedOBody)
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, expectedOBody)
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, expectedOBody)
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, expectedOBody)
 }
 
@@ -42,21 +42,13 @@ func TestRotateIBlock(t *testing.T) {
 	}
 
 	assertBodyIs(t, b, [][]bool{
-		{true, false, false, false},
-		{true, false, false, false},
-		{true, false, false, false},
-		{true, false, false, false},
-	})
-
-	b.Rotate()
-	assertBodyIs(t, b, [][]bool{
 		{false, false, false, false},
 		{false, false, false, false},
 		{false, false, false, false},
 		{true, true, true, true},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{false, false, false, true},
 		{false, false, false, true},
@@ -64,7 +56,7 @@ func TestRotateIBlock(t *testing.T) {
 		{false, false, false, true},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{true, true, true, true},
 		{false, false, false, false},
@@ -72,12 +64,20 @@ func TestRotateIBlock(t *testing.T) {
 		{false, false, false, false},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{true, false, false, false},
 		{true, false, false, false},
 		{true, false, false, false},
 		{true, false, false, false},
+	})
+
+	b.rotate()
+	assertBodyIs(t, b, [][]bool{
+		{false, false, false, false},
+		{false, false, false, false},
+		{false, false, false, false},
+		{true, true, true, true},
 	})
 }
 
@@ -94,7 +94,7 @@ func TestRotateJBlock(t *testing.T) {
 		{true, true, true, true},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{false, false, false, true},
 		{false, false, false, true},
@@ -102,7 +102,7 @@ func TestRotateJBlock(t *testing.T) {
 		{false, false, true, true},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{true, true, true, true},
 		{false, false, false, true},
@@ -110,7 +110,7 @@ func TestRotateJBlock(t *testing.T) {
 		{false, false, false, false},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{true, true, false, false},
 		{true, false, false, false},
@@ -132,7 +132,7 @@ func TestRotateLBlock(t *testing.T) {
 		{true, true, true, true},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{false, false, true, true},
 		{false, false, false, true},
@@ -140,7 +140,7 @@ func TestRotateLBlock(t *testing.T) {
 		{false, false, false, true},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{true, true, true, true},
 		{true, false, false, false},
@@ -148,7 +148,7 @@ func TestRotateLBlock(t *testing.T) {
 		{false, false, false, false},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{true, false, false, false},
 		{true, false, false, false},
@@ -169,21 +169,21 @@ func TestRotateSBlock(t *testing.T) {
 		{true, true, false},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{true, false, false},
 		{true, true, true},
 		{false, false, true},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{false, true, true},
 		{false, true, false},
 		{true, true, false},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{true, false, false},
 		{true, true, true},
@@ -203,21 +203,21 @@ func TestRotateZBlock(t *testing.T) {
 		{false, true, true},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{false, false, true},
 		{true, true, true},
 		{true, false, false},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{true, true, false},
 		{false, true, false},
 		{false, true, true},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{false, false, true},
 		{true, true, true},
@@ -237,21 +237,21 @@ func TestRotateTBlock(t *testing.T) {
 		{false, true, false},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{true, false, false},
 		{true, true, true},
 		{true, false, false},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{false, true, false},
 		{false, true, false},
 		{true, true, true},
 	})
 
-	b.Rotate()
+	b.rotate()
 	assertBodyIs(t, b, [][]bool{
 		{false, false, true},
 		{true, true, true},
@@ -264,7 +264,7 @@ func TestBuildRandomBlock(t *testing.T) {
 	occ := make(map[shape]int, len(allShapes))
 
 	for x := 0; x < 1000; x++ {
-		b := BuildRandomBlock()
+		b := buildRandomBlock()
 		occ[b.shape] = occ[b.shape] + 1
 	}
 
@@ -277,7 +277,7 @@ func TestBuildRandomBlock(t *testing.T) {
 	}
 }
 
-func assertBodyIs(t *testing.T, b Block, expectedBody [][]bool) {
+func assertBodyIs(t *testing.T, b block, expectedBody [][]bool) {
 	t.Helper()
 
 	if !reflect.DeepEqual(b.body, expectedBody) {

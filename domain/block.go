@@ -8,16 +8,16 @@ import (
 type shape rune
 
 const (
-	lBlock shape = 'l'
-	jBlock shape = 'j'
-	iBlock shape = 'i'
-	oBlock shape = 'o'
-	sBlock shape = 's'
 	zBlock shape = 'z'
+	lBlock shape = 'l'
+	oBlock shape = 'o'
+	iBlock shape = 'i'
+	sBlock shape = 's'
+	jBlock shape = 'j'
 	tBlock shape = 't'
 )
 
-var allBuilders = []func() Block{
+var allBuilders = []func() block{
 	buildLBlock,
 	buildJBlock,
 	buildIBlock,
@@ -27,12 +27,12 @@ var allBuilders = []func() Block{
 	buildTBlock,
 }
 
-type Block struct {
+type block struct {
 	shape shape
 	body  [][]bool
 }
 
-func (b *Block) Rotate() {
+func (b *block) rotate() {
 	n := len(b.body)
 
 	for x := 0; x < n/2; x++ {
@@ -47,25 +47,25 @@ func (b *Block) Rotate() {
 	}
 }
 
-func BuildRandomBlock() Block {
+func buildRandomBlock() block {
 	i, _ := rand.Int(rand.Reader, big.NewInt(int64(len(allBuilders))))
 	return allBuilders[i.Int64()]()
 }
 
-func buildIBlock() Block {
-	return Block{
+func buildIBlock() block {
+	return block{
 		shape: iBlock,
 		body: [][]bool{
-			{true, false, false, false},
-			{true, false, false, false},
-			{true, false, false, false},
-			{true, false, false, false},
+			{false, false, false, false},
+			{false, false, false, false},
+			{false, false, false, false},
+			{true, true, true, true},
 		},
 	}
 }
 
-func buildJBlock() Block {
-	return Block{
+func buildJBlock() block {
+	return block{
 		shape: jBlock,
 		body: [][]bool{
 			{false, false, false, false},
@@ -76,8 +76,8 @@ func buildJBlock() Block {
 	}
 }
 
-func buildLBlock() Block {
-	return Block{
+func buildLBlock() block {
+	return block{
 		shape: lBlock,
 		body: [][]bool{
 			{false, false, false, false},
@@ -88,8 +88,8 @@ func buildLBlock() Block {
 	}
 }
 
-func buildOBlock() Block {
-	return Block{
+func buildOBlock() block {
+	return block{
 		shape: oBlock,
 		body: [][]bool{
 			{true, true},
@@ -98,8 +98,8 @@ func buildOBlock() Block {
 	}
 }
 
-func buildSBlock() Block {
-	return Block{
+func buildSBlock() block {
+	return block{
 		shape: sBlock,
 		body: [][]bool{
 			{false, true, true},
@@ -109,8 +109,8 @@ func buildSBlock() Block {
 	}
 }
 
-func buildZBlock() Block {
-	return Block{
+func buildZBlock() block {
+	return block{
 		shape: zBlock,
 		body: [][]bool{
 			{true, true, false},
@@ -120,8 +120,8 @@ func buildZBlock() Block {
 	}
 }
 
-func buildTBlock() Block {
-	return Block{
+func buildTBlock() block {
+	return block{
 		shape: tBlock,
 		body: [][]bool{
 			{true, true, true},
