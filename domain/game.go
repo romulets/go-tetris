@@ -25,16 +25,6 @@ type coord struct {
 	x, y int
 }
 
-var initialCoord = map[shape]func() coord{
-	zBlock: func() coord { return coord{x: 0, y: 3} },
-	lBlock: func() coord { return coord{x: 0, y: 0} },
-	oBlock: func() coord { return coord{x: 0, y: 4} },
-	iBlock: func() coord { return coord{x: 0, y: 0} },
-	sBlock: func() coord { return coord{x: 0, y: 0} },
-	jBlock: func() coord { return coord{x: 0, y: 3} },
-	tBlock: func() coord { return coord{x: 0, y: 0} },
-}
-
 type movingBlock struct {
 	block block
 	coord coord
@@ -89,10 +79,15 @@ func newGame(randomBlock func() block) *Game {
 }
 
 func (g *Game) spawnBlock() gameStatus {
-	current := g.blockQueue.pollAndAdd(g.randomBlock())
+	nextBlock := g.blockQueue.pollAndAdd(g.randomBlock())
+	initialPos := coord{0, 3}
+	if nextBlock.shape == oBlock {
+		initialPos = coord{0, 4}
+	}
+
 	g.currentBlock = movingBlock{
-		block: current,
-		coord: initialCoord[current.shape](),
+		block: nextBlock,
+		coord: initialPos,
 	}
 
 	// Same coordinates because it's the first render

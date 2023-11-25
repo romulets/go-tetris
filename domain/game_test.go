@@ -135,6 +135,49 @@ func Test_newGame_ZFirst(t *testing.T) {
 	})
 }
 
+func Test_newGame_LFirst(t *testing.T) {
+	g := newGame(func() block {
+		return buildLBlock()
+	})
+
+	if g.currentBlock.block.shape != lBlock {
+		t.Errorf("expected shape %c but got %c", lBlock, g.currentBlock.block.shape)
+	}
+
+	if !reflect.DeepEqual(g.currentBlock.coord, coord{x: 0, y: 3}) {
+		t.Errorf(
+			"expected coord (%2d,%2d) but got (%2d,%2d)",
+			0,
+			3,
+			g.currentBlock.coord.x,
+			g.currentBlock.coord.y,
+		)
+	}
+
+	assertBoardIs(t, g, [20][10]Tile{
+		{None, None, None, None, None, Orange, None, None, None, None},
+		{None, None, None, Orange, Orange, Orange, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+		{None, None, None, None, None, None, None, None, None, None},
+	})
+}
+
 func assertBoardIs(t *testing.T, g *Game, board [20][10]Tile) {
 	t.Helper()
 
