@@ -68,10 +68,9 @@ func buildJBlock() block {
 	return block{
 		shape: jBlock,
 		body: [][]bool{
-			{false, false, false, false},
-			{false, false, false, false},
-			{true, false, false, false},
-			{true, true, true, true},
+			{false, false, false},
+			{true, false, false},
+			{true, true, true},
 		},
 	}
 }
@@ -80,10 +79,9 @@ func buildLBlock() block {
 	return block{
 		shape: lBlock,
 		body: [][]bool{
-			{false, false, false, false},
-			{false, false, false, false},
-			{false, false, false, true},
-			{true, true, true, true},
+			{false, false, false},
+			{false, false, true},
+			{true, true, true},
 		},
 	}
 }

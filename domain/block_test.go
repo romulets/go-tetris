@@ -88,34 +88,30 @@ func TestRotateJBlock(t *testing.T) {
 	}
 
 	assertBodyIs(t, b, [][]bool{
-		{false, false, false, false},
-		{false, false, false, false},
-		{true, false, false, false},
-		{true, true, true, true},
+		{false, false, false},
+		{true, false, false},
+		{true, true, true},
 	})
 
 	b.rotate()
 	assertBodyIs(t, b, [][]bool{
-		{false, false, false, true},
-		{false, false, false, true},
-		{false, false, false, true},
-		{false, false, true, true},
+		{false, false, true},
+		{false, false, true},
+		{false, true, true},
 	})
 
 	b.rotate()
 	assertBodyIs(t, b, [][]bool{
-		{true, true, true, true},
-		{false, false, false, true},
-		{false, false, false, false},
-		{false, false, false, false},
+		{true, true, true},
+		{false, false, true},
+		{false, false, false},
 	})
 
 	b.rotate()
 	assertBodyIs(t, b, [][]bool{
-		{true, true, false, false},
-		{true, false, false, false},
-		{true, false, false, false},
-		{true, false, false, false},
+		{true, true, false},
+		{true, false, false},
+		{true, false, false},
 	})
 }
 
@@ -126,34 +122,30 @@ func TestRotateLBlock(t *testing.T) {
 	}
 
 	assertBodyIs(t, b, [][]bool{
-		{false, false, false, false},
-		{false, false, false, false},
-		{false, false, false, true},
-		{true, true, true, true},
+		{false, false, false},
+		{false, false, true},
+		{true, true, true},
 	})
 
 	b.rotate()
 	assertBodyIs(t, b, [][]bool{
-		{false, false, true, true},
-		{false, false, false, true},
-		{false, false, false, true},
-		{false, false, false, true},
+		{false, true, true},
+		{false, false, true},
+		{false, false, true},
 	})
 
 	b.rotate()
 	assertBodyIs(t, b, [][]bool{
-		{true, true, true, true},
-		{true, false, false, false},
-		{false, false, false, false},
-		{false, false, false, false},
+		{true, true, true},
+		{true, false, false},
+		{false, false, false},
 	})
 
 	b.rotate()
 	assertBodyIs(t, b, [][]bool{
-		{true, false, false, false},
-		{true, false, false, false},
-		{true, false, false, false},
-		{true, true, false, false},
+		{true, false, false},
+		{true, false, false},
+		{true, true, false},
 	})
 }
 

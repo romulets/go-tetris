@@ -15,7 +15,7 @@ func Test_newGame_OFirst(t *testing.T) {
 		t.Errorf("expected shape %c but got %c", oBlock, g.currentBlock.block.shape)
 	}
 
-	if !reflect.DeepEqual(g.currentBlock.coord, coord{x: 4, y: 0}) {
+	if !reflect.DeepEqual(g.currentBlock.coord, coord{x: 0, y: 4}) {
 		t.Errorf(
 			"expected coord (%2d,%2d) but got (%2d,%2d)",
 			4,
@@ -50,21 +50,19 @@ func Test_newGame_OFirst(t *testing.T) {
 }
 
 func Test_newGame_JFirst(t *testing.T) {
-	t.Skip("Not implemented yet")
-
 	g := newGame(func() block {
 		return buildJBlock()
 	})
 
-	if g.currentBlock.block.shape != oBlock {
-		t.Errorf("expected shape %c but got %c", oBlock, g.currentBlock.block.shape)
+	if g.currentBlock.block.shape != jBlock {
+		t.Errorf("expected shape %c but got %c", jBlock, g.currentBlock.block.shape)
 	}
 
-	if !reflect.DeepEqual(g.currentBlock.coord, coord{x: 4, y: 0}) {
+	if !reflect.DeepEqual(g.currentBlock.coord, coord{x: 0, y: 3}) {
 		t.Errorf(
 			"expected coord (%2d,%2d) but got (%2d,%2d)",
-			4,
 			0,
+			4,
 			g.currentBlock.coord.x,
 			g.currentBlock.coord.y,
 		)
@@ -108,18 +106,29 @@ func assertBoardIs(t *testing.T, g *Game, board [20][10]Tile) {
 	}
 
 	if diff {
-		t.Errorf("Boards doesn't match \n\nEXPECTED\n%s, \nGOT\n%s", fmtBoard(board), fmtBoard(g.board))
+		t.Errorf("Boards doesn't match \n%s", fmtBoards(board, g.board))
 	}
 }
 
-func fmtBoard(board [20][10]Tile) string {
+func fmtBoards(board1 board, board2 board) string {
+	boards := [2]board{board1, board2}
+
 	b := strings.Builder{}
-	for _, row := range board {
-		for _, tile := range row {
-			if tile == None {
-				b.WriteRune('.')
-			} else {
-				b.WriteRune(rune(tile))
+
+	for x := range boards[0][0] {
+		for boardIdx := range boards[x] {
+			if boardIdx != 0 {
+				b.WriteString("\t\t")
+			}
+
+			for y := range boards[boardIdx][x] {
+				tile := boards[boardIdx][x][y]
+
+				if tile == None {
+					b.WriteRune('.')
+				} else {
+					b.WriteRune(rune(tile))
+				}
 			}
 		}
 		b.WriteRune('\n')

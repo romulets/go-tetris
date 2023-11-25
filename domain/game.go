@@ -28,10 +28,10 @@ type coord struct {
 var initialCoord = map[shape]func() coord{
 	zBlock: func() coord { return coord{x: 0, y: 0} },
 	lBlock: func() coord { return coord{x: 0, y: 0} },
-	oBlock: func() coord { return coord{x: 4, y: 0} },
+	oBlock: func() coord { return coord{x: 0, y: 4} },
 	iBlock: func() coord { return coord{x: 0, y: 0} },
 	sBlock: func() coord { return coord{x: 0, y: 0} },
-	jBlock: func() coord { return coord{x: 0, y: 0} },
+	jBlock: func() coord { return coord{x: 0, y: 3} },
 	tBlock: func() coord { return coord{x: 0, y: 0} },
 }
 
@@ -107,7 +107,7 @@ func (g *Game) processNewCoord(newCoord coord) gameStatus {
 		for colIdx, col := range row {
 			if col {
 				// todo: what if the game is inconsistent?
-				//				if g.board[currentCoord.y+colIdx][newCoord.x+rowIdx] != Tile(g.currentBlock.block.shape) {
+				//				if g.board[currentCoord.y+colIdx][newCoord.x+x] != Tile(g.currentBlock.block.shape) {
 				//					return inconsistentState
 				//				}
 				g.board[currentCoord.y+colIdx][currentCoord.x+rowIdx] = None
@@ -117,16 +117,42 @@ func (g *Game) processNewCoord(newCoord coord) gameStatus {
 
 	// "Plot" new coordinate
 	g.currentBlock.coord = newCoord
-	for rowIdx, row := range g.currentBlock.block.body {
-		for colIdx, col := range row {
+	for x, row := range trimBlock(g.currentBlock.block) {
+		for y, col := range row {
 			if col {
-				if g.board[newCoord.y+colIdx][newCoord.x+rowIdx] != None {
+				if g.board[newCoord.x+x][newCoord.y+y] != None {
 					return gameOver
 				}
-				g.board[newCoord.y+colIdx][newCoord.x+rowIdx] = Tile(g.currentBlock.block.shape)
+				g.board[newCoord.x+x][newCoord.y+y] = Tile(g.currentBlock.block.shape)
 			}
 		}
 	}
 
 	return gameRunning
+}
+
+func trimBlock(b block) [][]bool {
+	// copy
+	trimBody := make([][]bool, len(b.body))
+	for x := range b.body {
+		trimBody[x] = make([]bool, len(b.body[x]))
+		copy(trimBody[x], b.body[x])
+	}
+
+	// remove horizontals
+	for _, row := range b.body {
+		hasContent := false
+		for _, cel := range row {
+			hasContent = hasContent || cel
+			if hasContent {
+				break
+			}
+		}
+
+		if !hasContent {
+			trimBody = trimBody[1:len(b.body)]
+		}
+	}
+
+	return trimBody
 }
