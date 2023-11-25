@@ -122,9 +122,9 @@ func buildTBlock() block {
 	return block{
 		shape: tBlock,
 		body: [][]bool{
+			{false, false, false},
+			{false, true, false},
 			{true, true, true},
-			{false, true, false},
-			{false, true, false},
 		},
 	}
 }

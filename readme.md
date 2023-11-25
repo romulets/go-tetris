@@ -6,8 +6,6 @@ A tetris in go just because
 
 # TODO
 
-- Implement all pieces of new game
-  - t block
 - Implement tick (go a turn)
 - Implement move piece to the right
 - Implement move piece to the left
