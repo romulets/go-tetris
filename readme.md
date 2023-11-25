@@ -7,7 +7,6 @@ A tetris in go just because
 # TODO
 
 - Implement all pieces of new game
-  - i block
   - s block
   - t block
 - Implement tick (go a turn)

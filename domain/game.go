@@ -80,18 +80,21 @@ func newGame(randomBlock func() block) *Game {
 
 func (g *Game) spawnBlock() gameStatus {
 	nextBlock := g.blockQueue.pollAndAdd(g.randomBlock())
-	initialPos := coord{0, 3}
-	if nextBlock.shape == oBlock {
-		initialPos = coord{0, 4}
-	}
-
 	g.currentBlock = movingBlock{
 		block: nextBlock,
-		coord: initialPos,
+		coord: initialPos(nextBlock),
 	}
 
 	// Same coordinates because it's the first render
 	return g.processNewCoord(g.currentBlock.coord)
+}
+
+func initialPos(nextBlock block) coord {
+	initialPos := coord{0, 3}
+	if nextBlock.shape == oBlock {
+		initialPos = coord{0, 4}
+	}
+	return initialPos
 }
 
 func (g *Game) processNewCoord(newCoord coord) gameStatus {
@@ -145,7 +148,7 @@ func trimBlock(b block) [][]bool {
 		}
 
 		if !hasContent {
-			trimBody = trimBody[1:len(b.body)]
+			trimBody = trimBody[1:]
 		} else {
 			break
 		}
