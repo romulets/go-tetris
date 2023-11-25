@@ -100,8 +100,8 @@ func buildSBlock() block {
 	return block{
 		shape: sBlock,
 		body: [][]bool{
+			{false, false, false},
 			{false, true, true},
-			{false, true, false},
 			{true, true, false},
 		},
 	}
@@ -111,8 +111,8 @@ func buildZBlock() block {
 	return block{
 		shape: zBlock,
 		body: [][]bool{
+			{false, false, false},
 			{true, true, false},
-			{false, true, false},
 			{false, true, true},
 		},
 	}

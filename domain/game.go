@@ -26,7 +26,7 @@ type coord struct {
 }
 
 var initialCoord = map[shape]func() coord{
-	zBlock: func() coord { return coord{x: 0, y: 0} },
+	zBlock: func() coord { return coord{x: 0, y: 3} },
 	lBlock: func() coord { return coord{x: 0, y: 0} },
 	oBlock: func() coord { return coord{x: 0, y: 4} },
 	iBlock: func() coord { return coord{x: 0, y: 0} },
@@ -106,7 +106,7 @@ func (g *Game) processNewCoord(newCoord coord) gameStatus {
 	for rowIdx, row := range g.currentBlock.block.body {
 		for colIdx, col := range row {
 			if col {
-				// todo: what if the game is inconsistent?
+				// what if the game is inconsistent?
 				//				if g.board[currentCoord.y+colIdx][newCoord.x+x] != Tile(g.currentBlock.block.shape) {
 				//					return inconsistentState
 				//				}
@@ -139,7 +139,7 @@ func trimBlock(b block) [][]bool {
 		copy(trimBody[x], b.body[x])
 	}
 
-	// remove horizontals
+	// remove top horizontals
 	for _, row := range b.body {
 		hasContent := false
 		for _, cel := range row {
@@ -151,8 +151,14 @@ func trimBlock(b block) [][]bool {
 
 		if !hasContent {
 			trimBody = trimBody[1:len(b.body)]
+		} else {
+			break
 		}
 	}
+
+	// remove bottom horizontals
+	// remove left verticals
+	// remove right verticals
 
 	return trimBody
 }
